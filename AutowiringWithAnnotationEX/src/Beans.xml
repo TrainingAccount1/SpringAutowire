@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:context = "http://www.springframework.org/schema/context"  
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context                    
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd"> 
+   
+   
+  <!-- in above beans code we use two additional things
+   i.e., xmlns:context = "http://www.springframework.org/schema/context"   and
+   http://www.springframework.org/schema/context                    
+   http://www.springframework.org/schema/context/spring-context.xsd" within xsi:schemalocation attribute
+   because we are using the context:annotation-config for annotation based autowiring if donot specify above we get error 
+   "The prefix "context" for element "context:annotation-config" is not bound" -->
+   
+   
+   <context:component-scan base-package="com.auto.annotation" />
+ <context:annotation-config />
+ 
+   <bean id="text" class="com.auto.annotation.College"  >
+   <property name="collegeId" value="1"></property>
+   <property name="collegeName" value="SJCIT" />
+   </bean>
+   
+   
+    <bean id="department" class="com.auto.annotation.Department">
+   <property name="deptId" value="101" />
+   <property name="deptName" value="CSE" />
+    </bean>
+   
+   <bean id="department1" class="com.auto.annotation.Department"> 
+   <!-- this is used to show an If a dependency class is configured for more
+    than once in spring configuration file, the IOC container will throw the Exception for bean ambiguity. 
+     In order to resolve the ambiguity, we can use @Qualifier annotation along with the  @Autowired  -->
+   <property name="deptId" value="102" />
+   <property name="deptName" value="ISE" />
+   </bean>
+   
+   <bean id="department2" class="com.auto.annotation.Department"><!-- same explaination as above defined under bean id= department1 -->
+   <property name="deptId" value="103" />
+   <property name="deptName" value="ME" />
+   </bean>
+   
+   </beans>
